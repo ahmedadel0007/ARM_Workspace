@@ -40,7 +40,7 @@ LED_errorstate_t Led_SetStatus (u32 Led,u8 States){
         local_errorstate =LED_INVALID_status;
 	}
 	else{
-		local_errorstate=Gpio_SetPin_value(LEDS[Led].LED_Port,LEDS[Led].LED_Pin,LEDS[Led].LED_Connection^States);
+		local_errorstate=GPIO_SetPin_value(LEDS[Led].LED_Port,LEDS[Led].LED_Pin,LEDS[Led].LED_Connection^States);
 	}
 	return local_errorstate;
 }
