@@ -52,16 +52,7 @@ Switch_errorstate_t SWITCH_Get_Read(u32 Switch_num,u32* Read){
 	else{
 		GPIO_Get_Pin_Value(Switchs[Switch_num].Switch_port,Switchs[Switch_num].Switch_pin,&helper);
 	}
-	switch(Switchs[Switch_num].Switch_Mode){
-	case GPIO_MODE_INPUT_PU: *Read=!helper;
-	break;
-	case GPIO_MODE_INPUT_PD: *Read=helper;
-	break;
-	case GPIO_MODE_INPUT_FLOATING: * Read=helper;
-	break ;
-	default: Local_Error=Switch_nok;
-	break;
-	}
+
 	return Local_Error;
 }
 
