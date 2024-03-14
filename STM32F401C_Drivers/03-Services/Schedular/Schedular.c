@@ -8,6 +8,7 @@
 
 #include "Schedular.h"
 
+
 //============================Global Variables===============================//
 static volatile u32 Pending_ticks ;
 extern const Runnable_t RunnableList [_RUN_NUM];
@@ -26,7 +27,7 @@ void Sched_Init (void){
 
 	STK_SetConfig(STK_ProcessorClock_EN_INT);
 	STK_SetTimeMS (tickTime_MS);
-	STK_SetCallBack (Sched);
+	STK_SetCallBack (Tickcbf);
 }
 
 void Sched_Start (void){
