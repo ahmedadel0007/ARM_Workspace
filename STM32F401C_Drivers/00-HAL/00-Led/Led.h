@@ -14,8 +14,8 @@
 #define  LED_STATE_ON  1
 #define  LED_STATE_OFF 0
 
-#define  LED_Connection_foward  1
-#define  LED_Connection_Reverse 0
+#define  LED_Connection_foward  0
+#define  LED_Connection_Reverse 1
 //===================================Types=================================//
 
 typedef struct {

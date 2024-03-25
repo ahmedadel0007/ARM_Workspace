@@ -138,5 +138,11 @@ STK_ERRORSTATE_t  STK_SetCallBack (STK_CBF_t CBF){
 	return local_error;
 }
 //=========================================================================================//
-
+void SysTick_Handler()
+{
+	if (APP_CBF)
+	{
+		APP_CBF();
+	}
+}
 

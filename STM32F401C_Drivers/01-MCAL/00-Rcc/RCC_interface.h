@@ -27,6 +27,9 @@
 #ifndef RCC_INTERFACE_H_
 #define RCC_INTERFACE_H_
 
+#include "STD_TYPES.h"
+#include "BIT_MATH.h"
+
 /* ==================================================================== */
 /* ======================== Registers Defination ====================== */
 /* ==================================================================== */
@@ -286,241 +289,24 @@ typedef enum {
 /**************************************************************************/
 /*                          Function Prototypes                           */
 /**************************************************************************/
-
-/*
- * Public Function:		RCC_controlclk
- * Input Parameter:		Copy_u8ClockSelection in range {HSI_CLOCK, HSEON_CLOCK, PLLON_CLOCK}
- *
- * Description:			This function to set the clock system
- *
- * Return:				Error Input if it's not from the range
- *
- * */
+Rcc_enuErrorStatus	Rcc_SelectsystemClk (u32 Copy_ClockSelection);
 
 Rcc_enuErrorStatus  RCC_ControlClk(u8 Copy_ClockSystem,RCC_enuClkStatus Copy_enuClkStatus);
 
+Rcc_enuErrorStatus  RCC_enuCheckReady(u8 Copy_u8ClockSystem, u8* Add_pu8ReadyStatus);
 
-/*
- * Public Function:		Rcc_ReadStatusClock
- * Input Parameter:		Copy_u8ClockSelection in range {HSI_CLOCK, HSEON_CLOCK, PLLON_CLOCK}
- *
- * Description:			This function is to read the status of the clock set ready or not
- *
- * Return:				-> If the clock fail to be ready will return Error Status
- *						-> if the input not in range
- * */
-
-Rcc_enuErrorStatus	Rcc_ReadStatusClock(u32 Copy_ClockSelection);
-
-
-/*
- * Public Function  		:	Rcc_SetHseClockBypass
- * Description				:	This Function is to set the bypass clock to bypass the oscillator with an external clock
- *
- *!!!Constrain				:	You can only set it if and only if the you didn't set the clock system
- *
- * Input Parameter			:	Not-Applicable	(void)
- *
- * Return					:	Not-Applicable (void)
- *
- * Input/Output Parameter	:	Not-Applicable
- *
- * */
-
-void Rcc_SetHseClockBypass(void);
-
-
-/*
- * Public Function  		:	Rcc_SetPllClock
- * Description				:	This Function is to set the PLL clock
- *
- *!!!Constrain				:	you need to set the clock before configure the PLL
- *
- * Input Parameter:			:	Copy_u8ClockSelection in range {PLL_HSI, PLL_HSE}
- *
- * Return					:	-> Wrong Input
- * 								-> The PLL in ON
- *
- * Input/Output Parameter	:	Not-Applicable
- *
- * */
-
-
-
-Rcc_enuErrorStatus Rcc_SetPllClock(u32 Copy_ClockSelection);
-
-
-/*
- * Public Function  		:	Rcc_PllConfigureation
- * Description				:	This Function is to set the bypass clock to bypass the oscillator with an external clock
- *
- *!!!Constrain				:	You can only configure the PLL if the PLL is disable
- *
- *Input Parameter			:	@ Copy_u8PllM in range (2 -> 63)
- * 								@ Copy_u8PllN in range (192 -> 432)
- * 								@ Copy_u8PllQ in range (2 -> 15)
- * 								@ Copy_u8PllP in range that the output clock does not exceed 84 MHZ
- *
- *!!Attention				:	The default clock is HSI in case you didn't set PLL Clock
- *
- * Return					:	Input not in range
- *
- * Input/Output Parameter	:	Not-Applicable
- *
- * */
-
-Rcc_enuErrorStatus	Rcc_PllConfiguration(u8 Copy_PllM, u16 Copy_PllN, u8 Copy_PllQ, u8 Copy_PllP);
-
-
-/*
- * Public Function			:	Rcc_SetClockSystem
- *
- * Description				:	This function to set the clock system that will feed the processor
- * 								& peripheral...
- *
- * Input Parameter			:	Copy_u8ClockSlection in range (HSI_CLOCK_SYSTEM, HSE_CLOCK_SYSTEM, PLL_CLOCK_SYSTEM)
- *
- * Return 					: 	Error Status if the input out of range
- *
- * Input/Output Parameter	:	Not-Applicable
- *
- * */
-
-Rcc_enuErrorStatus	Rcc_SelectsystemClk (u32 Copy_ClockSelection);
-
-
-
-/*
- * Public Function:		Rcc_ReadSystemClockStatus
- * Input Parameter:		Copy_u8ClockSelection in range {HSI_CLOCK, HSEON_CLOCK, PLLON_CLOCK}
- *
- * Description:			This function is to read the status of the system clock
- *
- * Return:				-> the clock of the system
- *
- * */
-
-RCC_enuClockStatus Rcc_ReadSystemClockStatus (void);
-
-
-/*
- * Public Function			:	Rcc_ResetAHB1Peripheral
- *
- * Description				:	This function is to reset the AHB1 peripheral (it disable the clock)
- *
- * Input Parameter			:	Copy_u8AHB1Peripheral in range
- *								@ SET_RESET_GPIO
- *								@ SET_RESET_GPIO
- *								@ SET_RESET_GPIO
- *								@ SET_RESET_GPIO
- *								@ SET_RESET_GPIO
- *								@ SET_RESET_GPIO
- *
- * Return 					: 	Error Status if the input not in range
- *
- * Input/Output Parameter	:	Not-Applicable
- *
- * */
-
-Rcc_enuErrorStatus	Rcc_ResetAHB1Peripheral(u32 Copy_AHB1Peripheral);
-
-
-/*
- * Public Function			:	Rcc_ResetAPB1Peripheral
- *
- * Description				:	This function is to reset the ApB1 peripheral (it disable the clock)
- *
- * Input Parameter			:	u8 Copy_u8APB2Peripheral in range {}
- *
- * Return 					: 	Error Status if the input not in range
- *
- * Input/Output Parameter	:	Not-Applicable
- *
- * */
-
-Rcc_enuErrorStatus	Rcc_ResetAPB1Peripheral(u32 Copy_APB1Peripheral);
-
-
-/*
- * Public Function			:	Rcc_ResetAPB2Peripheral
- *
- * Description				:	This function is to reset the APB2 peripheral (it disable the clock)
- *
- * Input Parameter			:	u8 Copy_u8APB2Peripheral in range {}
- *
- * Return 					: 	Error Status if the input not in range
- *
- * Input/Output Parameter	:	Not-Applicable
- *
- * */
-
-Rcc_enuErrorStatus	Rcc_ResetAPB2Peripheral(u32 Copy_APB2Peripheral);
-
-
-/*
- * Public Function			:	Rcc_SetAHB1Peripheral
- *
- * Description				:	This function is to reset the AHB1 peripheral (it disable the clock)
- *
- * Input Parameter			:	Copy_u8AHB1Peripheral in range
- *								@ SET_RESET_GPIO
- *								@ SET_RESET_GPIO
- *								@ SET_RESET_GPIO
- *								@ SET_RESET_GPIO
- *								@ SET_RESET_GPIO
- *								@ SET_RESET_GPIO
- *
- * Return 					: 	Error Status if the input not in range
- *
- * Input/Output Parameter	:	Not-Applicable
- *
- * */
-
-Rcc_enuErrorStatus	Rcc_SetAHB1Peripheral(u32 Copy_AHB1Peripheral);
-
-
-/*
- * Public Function			:	Rcc_SetAPB1Peripheral
- *
- * Description				:	This function is to reset the ApB1 peripheral (it disable the clock)
- *
- * Input Parameter			:	u8 Copy_u8APB2Peripheral in range
- *
- *
- * Return 					: 	Error Status if the input not in range
- *
- * Input/Output Parameter	:	Not-Applicable
- *
-
- * */
-
-Rcc_enuErrorStatus	Rcc_SetAPB1Peripheral(u32 Copy_APB1Peripheral);
-
-
-/*
- * Public Function			:	Rcc_SetAPB2Peripheral
- *
- * Description				:	This function is to reset the APB2 peripheral (it disable the clock)
- *
- * Input Parameter			:	u8 Copy_u8APB2Peripheral in range {}
- *
- * Return 					: 	Error Status if the input not in range
- *
- * Input/Output Parameter	:	Not-Applicable
- *
- * */
-
-Rcc_enuErrorStatus	Rcc_SetAPB2Peripheral(u32 Copy_APB2Peripheral);
-
-
-
-Rcc_enuErrorStatus	RCC_enuCheckReady (u8 Copy_u8ClockSystem, u8* Add_pu8ReadyStatus);
-
+Rcc_enuErrorStatus  RCC_enuConfigPLL(RCC_structCLKPLL Copy_structPLLCongif);
 
 Rcc_enuErrorStatus  RCC_enuControlPrescalerAHB(u32 Copy_AHBPrescaler);
 
 Rcc_enuErrorStatus  RCC_enuControlPrescalerAPB1(u32 Copy_APB1Prescaler);
 
 Rcc_enuErrorStatus  RCC_enuControlPrescalerAPB2(u32 Copy_APB2Prescaler);
+
+Rcc_enuErrorStatus  RCC_enuEnablePreipheral(u32 Copy_u32PeripheralBus, u32 Copy_u32Peripheral);
+
+Rcc_enuErrorStatus RCC_enuDisablePeripheral(u32 Copy_u32PeripheralBus, u32 Copy_u32Peripheral);
+
+
 
 #endif /* MRCC_INTERFACE_H_ */
