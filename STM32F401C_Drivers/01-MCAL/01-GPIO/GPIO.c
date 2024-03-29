@@ -51,7 +51,7 @@ GPIO_Errorstate_t Gpio_enuInit(GPIO_Pinconfig_t* Pin_config){
 	{
 		local_errorstate=GPIO_Wrong_Speed_Config;
 	}
-	else if ((Pin_config->GPIO_MODE < GPIO_MODE_INPUT_FLOATING)||(Pin_config->GPIO_MODE >= GPIO_MODE_AF_OD_PD))
+	else if ((Pin_config->GPIO_MODE < GPIO_MODE_INPUT_FLOATING)||(Pin_config->GPIO_MODE > GPIO_MODE_ANALOG))
 	{
 		local_errorstate=GPIO_Wrong_Mode_Config;
 
@@ -95,12 +95,12 @@ GPIO_Errorstate_t Gpio_enuInit(GPIO_Pinconfig_t* Pin_config){
 GPIO_Errorstate_t GPIO_SetPin_value(void* Copy_Port, u32 pin_num,u32 Copy_Value){
 
 	GPIO_Errorstate_t local_errorstate =GPIO_Ok;
-	if ( ( pin_num < GPIO_PIN0  ) || (pin_num  >GPIO_PIN15 ) )
+	if (pin_num >GPIO_PIN15 )
 	{
 		local_errorstate=GPIO_Wrong_Pin_Config;
 	}
 
-	else if (!((Copy_Value ==GPIO_STATE_HIGH)||(Copy_Value == GPIO_STATE_LOW)))
+	else if ((Copy_Value != GPIO_STATE_HIGH) && (Copy_Value != GPIO_STATE_LOW))
 	{
 		local_errorstate=GPIO_WRONG_STATE;
 	}
