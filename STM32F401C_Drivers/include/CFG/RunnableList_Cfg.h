@@ -12,6 +12,9 @@
 {
     app1 ,
     app2 ,
+    app3 ,
+    app4 ,
+    app5 ,
 	_RUN_NUM,
 
 }Run_t;
@@ -19,6 +22,14 @@
 extern void LCD_Runnable (void);
 
 extern void LCDTest_Runnable(void) ;
+
+extern void Runnable_views (void);
+
+extern void Runnable_timeStamp (void);
+
+extern void switch_runnable_Task (void);
+
+extern void SWITCH_Runabble(void);
 
 
 #endif /* RUNNABLELIST_CFG_H_ */

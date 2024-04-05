@@ -44,8 +44,8 @@
 
 /*******Macros for the GPIO pin modes*******/
 #define GPIO_MODE_INPUT_FLOATING 	  0x00000000
-#define GPIO_MODE_INPUT_PU 	          0x00000008
-#define GPIO_MODE_INPUT_PD 	          0x00000010
+#define GPIO_MODE_INPUT_PU 	          0x00000004
+#define GPIO_MODE_INPUT_PD 	          0x00000008
 
 #define GPIO_MODE_OUTPUT_PP   	0x00000001
 #define GPIO_MODE_OUTPUT_PP_PU	0x00000009
@@ -173,7 +173,7 @@ GPIO_Errorstate_t GPIO_SetPin_value(void* Copy_Port, u32 pin_num,u32 Copy_Value)
 *                   #support to configure many pins in the same port at once.          *
 * @return       :  error, choosing a wrong pin, port or value   -----------------------*
 ****************************************************************************************/
-GPIO_Errorstate_t GPIO_GetPin_value(void* Copy_Port, u16 Copy_Pin, u8* Copy_Value);
+GPIO_Errorstate_t GPIO_GetPin_value(void* Copy_Port, u16 Copy_Pin, u32* Copy_Value);
 
 
 

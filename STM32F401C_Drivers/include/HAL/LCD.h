@@ -56,7 +56,7 @@ typedef struct {
 
 /************************************API'S***************************************************/
 
-LCD_ERRORSTATE_t LCD_WriteString_Asynch (const u8* string,u8 Length);
+LCD_ERRORSTATE_t LCD_WriteString_Asynch (char* string,u8 Length);
 
 LCD_ERRORSTATE_t LCD_Init_Asynch (void);
 

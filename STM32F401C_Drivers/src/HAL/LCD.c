@@ -89,7 +89,7 @@ typedef struct
 
 typedef struct{
 
-	const u8* String;
+	char* String;
 	u16 length ;
 	LCD_InitMode_t  Init;
 	LCD_UserREQ_State State;
@@ -279,7 +279,7 @@ LCD_ERRORSTATE_t LCD_ClearScreen_Asynch (void){
 }
 
 
-LCD_ERRORSTATE_t LCD_WriteString_Asynch (const u8* string,u8 Length){
+LCD_ERRORSTATE_t LCD_WriteString_Asynch ( char* string,u8 Length){
 	LCD_ERRORSTATE_t localreturn=LCD_OK;
 	if (string ==NULL){
 		localreturn =LCD_NULLPTR;
@@ -305,8 +305,8 @@ LCD_ERRORSTATE_t LCD_SetCursorPostion_Asynch (u8 PostionX ,u8 PostionY){
 		UserREQ.State=LCD_REQ_busy;
 		UserREQ.Type=LCD_SetCursiorPostion;
 
-		Current_CursiorPostion.Current_Line_Postion=PostionX;
-		Current_CursiorPostion.Currrent_Col_Postion=PostionY;
+		UserREQ.Current_Postion.Current_Line_Postion=PostionX;
+		UserREQ.Current_Postion.Currrent_Col_Postion=PostionY;
 	}
 	else{
 		localreturn=LCD_NOK;

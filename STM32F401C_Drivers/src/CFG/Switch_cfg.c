@@ -1,26 +1,38 @@
-/*
- * Switch_cfg.c
- *
- *  Created on: 20, 2024
- *      Author: Ahmed Adel
- */
-
-
-#include "GPIO.h"
 #include "Switch.h"
 
 
-
-const Switch_cfg_t Switchs[_Switch_num]=
+SWITCHCFG_str Switches [_SWITCH_NUM ]=
 {
-		[Switch_007]={.Switch_port=GPIO_A,
-				      .Switch_pin=GPIO_PIN0,
-					  .Switch_Mode= Switch_input_PU,
+
+	[Switch_mode]=
+		{
+				.SwitchPORT = SWITCH_PORTB,
+				.SwitchPINnumber = SWITCH_PIN12,
+				.SwitchConnection = SWITCH_PULLUP,
 		},
-		[Switch_Alarm]={.Switch_port=GPIO_A,
-			            .Switch_pin=GPIO_PIN1,
-				        .Switch_Mode= Switch_input_PD,
-
+		[Switch_up]=
+		{
+				.SwitchPORT = SWITCH_PORTA,
+				.SwitchPINnumber = SWITCH_PIN1,
+				.SwitchConnection = SWITCH_PULLUP,
+		},
+		[Switch_down]=
+		{
+				.SwitchPORT = SWITCH_PORTA,
+				.SwitchPINnumber = SWITCH_PIN2,
+				.SwitchConnection = SWITCH_PULLUP,
+		},    
+		[Switch_right]=
+		{
+				.SwitchPORT = SWITCH_PORTA,
+				.SwitchPINnumber = SWITCH_PIN4,
+				.SwitchConnection = SWITCH_PULLUP,
+		},
+		[Switch_left]=
+		{
+				.SwitchPORT = SWITCH_PORTA,
+				.SwitchPINnumber = SWITCH_PIN3,
+				.SwitchConnection = SWITCH_PULLUP,
 		}
+								
 };
-

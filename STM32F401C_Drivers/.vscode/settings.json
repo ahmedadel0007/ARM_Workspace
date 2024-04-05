@@ -66,6 +66,8 @@
     "rcc_interface.h": "c",
     "bit_math.h": "c",
     "schedular.h": "c",
-    "lcd.h": "c"
-  }
+    "lcd.h": "c",
+    "nvic.h": "c"
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }

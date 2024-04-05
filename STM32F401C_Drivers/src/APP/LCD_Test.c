@@ -2,7 +2,7 @@
 #include "LCD.h"
 #include "RCC_interface.h"
 
-/*
+
 void LCDTest_Runnable(void)
 {
   static u32 time=0;
@@ -16,14 +16,14 @@ void LCDTest_Runnable(void)
     }
     else if (time==5)
     {
-    	LCD_SetCursorPostion_Asynch(LCD_DISPLAY_LINE2 , LCD_DISPLAY_COL3);
+    	LCD_SetCursorPostion_Asynch(LCD_DISPLAY_LINE4 , LCD_DISPLAY_COL1);
     }
     else if (time==6)
     {
     	LCD_WriteString_Asynch("Ahmed",5);
     }
     time ++ ;
-}
+}/*
 int main (void)
 {
 	RCC_enuEnablePreipheral(AHB1_BUS,GPIOB_RCC);

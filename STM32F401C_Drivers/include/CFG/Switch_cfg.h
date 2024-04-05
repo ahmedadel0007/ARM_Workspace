@@ -1,22 +1,25 @@
-/*
- * Switch_cfg.h
- *
- *  Created on: 20, 2024
- *      Author: Ahmed Adel
- */
 
-#ifndef SWITCH_CFG_H_
-#define SWITCH_CFG_H_
+#ifndef SWITCHCFG_H_
+#define SWITCHCFG_H_
 
-typedef enum {
-	Switch_Alarm,
-	Switch_007,
+typedef enum
+{
+	Switch_mode,
+	Switch_up,
+	Switch_down,
+	Switch_right,
+	Switch_left,
 
 
-	_Switch_num
+	_SWITCH_NUM  /*THE USER SHOULDNOT CHANGE IT */
+}SWITCHES_enu;
 
-}Switchs_t;
+typedef struct
+{
+	void* SwitchPORT;
+	u32 SwitchPINnumber;
+	u32 SwitchConnection;
+}SWITCHCFG_str;
 
 
-
-#endif /* SWITCH_CFG_H_ */
+#endif  /*SWITCHCFG_H_*/

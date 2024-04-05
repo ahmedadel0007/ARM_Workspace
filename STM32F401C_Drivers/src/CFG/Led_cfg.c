@@ -22,7 +22,7 @@ const Led_cfg_t LEDS [_LED_Num]={
 				.LED_Pin=GPIO_PIN7,
 				.LED_Connection=LED_Connection_foward,
 				.LED_MODE=GPIO_MODE_OUTPUT_PP,
-				.LED_Speed=GPIO_SPEED_LOW,
+				.LED_Speed=GPIO_SPEED_HIGH,
 		}
 
 };

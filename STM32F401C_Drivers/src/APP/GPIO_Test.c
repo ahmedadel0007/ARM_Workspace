@@ -4,7 +4,7 @@
 
 #include "GPIO.h"
 
-
+/*
 int main()
 {
 
@@ -19,7 +19,7 @@ int main()
 
 			GPIO_Pinconfig_t led;
 
-			u8 Local_var=0;
+			//u8 Local_var=0;
 
 			led.GPIO_portnumber=GPIO_A;
 			led.GPIO_pinnumber=GPIO_PIN0;
@@ -32,7 +32,7 @@ int main()
 
 			GPIO_SetPin_value(GPIO_A,GPIO_PIN0,GPIO_STATE_HIGH);
 
-			GPIO_GetPin_value (GPIO_A,GPIO_PIN0,&Local_var);
+			//GPIO_GetPin_value (GPIO_A,GPIO_PIN0,&Local_var);
 
 
 
@@ -45,3 +45,4 @@ int main()
 	}
 	return 0;
 }
+*/

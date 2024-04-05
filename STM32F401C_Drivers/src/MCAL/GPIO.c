@@ -51,7 +51,7 @@ GPIO_Errorstate_t Gpio_enuInit(GPIO_Pinconfig_t* Pin_config){
 	{
 		local_errorstate=GPIO_Wrong_Speed_Config;
 	}
-	else if ((Pin_config->GPIO_MODE < GPIO_MODE_INPUT_FLOATING)||(Pin_config->GPIO_MODE > GPIO_MODE_ANALOG))
+	else if ((Pin_config->GPIO_MODE < GPIO_MODE_INPUT_FLOATING)||(Pin_config->GPIO_MODE > GPIO_MODE_AF_OD_PD))
 	{
 		local_errorstate=GPIO_Wrong_Mode_Config;
 
@@ -135,7 +135,7 @@ GPIO_Errorstate_t GPIO_SetPin_value(void* Copy_Port, u32 pin_num,u32 Copy_Value)
 
 //=====================================================================================================//
 
-GPIO_Errorstate_t GPIO_GetPin_value(void* Copy_Port, u16 Copy_Pin, u8* Copy_Value){
+GPIO_Errorstate_t GPIO_GetPin_value(void* Copy_Port, u16 Copy_Pin, u32* Copy_Value){
 	GPIO_Errorstate_t local_errorstate =GPIO_Ok;
 
 	if ( ( Copy_Pin < GPIO_PIN0  ) || (Copy_Pin  >GPIO_PIN15 ) )
@@ -143,16 +143,14 @@ GPIO_Errorstate_t GPIO_GetPin_value(void* Copy_Port, u16 Copy_Pin, u8* Copy_Valu
 		local_errorstate=GPIO_Wrong_Pin_Config;
 	}
 
-
-
 	else if ((Copy_Port == NULL) || (Copy_Value == NULL) )
 	{
 		local_errorstate=GPIO_NULL_ptr;
 	}
+	
 	else
 	{
-		*Copy_Value=(((GPIO_Reg_t*)(Copy_Port))->IDR &(1 <<Copy_Pin));
-
+		*Copy_Value=(((((GPIO_Reg_t*)Copy_Port)->IDR)>> Copy_Pin) & (1));
 	}
 return local_errorstate;
 }
