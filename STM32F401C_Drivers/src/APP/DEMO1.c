@@ -44,37 +44,47 @@ char Current_date[10];
 /********************Runnables**********************************************************/
 void Runnable_views(void)
 {
-   
+    
     static u8 VIEWS = VIEW_1;
     switch (VIEWS)
     {
     case VIEW_1:
-       
+    
         Display_Date_time();
        
         if (current_pressedswitch == Switch_mode)
         {
             VIEWS=VIEW_2;
+            LCD_ClearScreen_Asynch();  
         }
 
         break;
 
     case VIEW_2:
+           
              Display_View2(); 
-
-             if (current_pressedswitch == Switch_up){
-                Status= StopWatch;
-                VIEWS=VIEW_3;
-             }   
-             else if (current_pressedswitch == Switch_down){
-                VIEWS=VIEW_4;
-                Status=EditTime;
-             }
-
+            //  if (current_pressedswitch == Switch_up){
+            //     Status= StopWatch;
+            //     VIEWS=VIEW_3;
+            //  }   
+            //  else if (current_pressedswitch == Switch_down){
+            //     VIEWS=VIEW_4;
+            //     Status=EditTime;
+            //  }
+            
+              if (current_pressedswitch == Switch_mode){
+                    LCD_ClearScreen_Asynch();
+                     VIEWS= VIEW_1;
+                     
+                   }
+                    
+                
+             
+           
         break;
 
     case VIEW_3:
-
+             
 
         break;
 
@@ -111,11 +121,11 @@ void Runnable_timeStamp(void)
 /***********************Implementation************************************************/
 void Display_Date_time(void)
  {
+    
     static u8 counter = 0;
     counter++;
-
-    if (counter == 2)
-    {
+   
+    if (counter ==2){
         LCD_SetCursorPostion_Asynch(LCD_DISPLAY_LINE1, LCD_DISPLAY_COL1);
     }
     if (counter == 4)
@@ -130,7 +140,7 @@ void Display_Date_time(void)
      else if (counter == 8){
 
     Current_time  [0] = 48 + (Time.Hours/10);
-   Current_time   [1] =  48 + (Time.Hours%10);
+    Current_time   [1] =  48 + (Time.Hours%10);
 
     Current_time  [2] = 58 ;
 
@@ -147,22 +157,30 @@ void Display_Date_time(void)
 }
 
 void Display_View2 (void){
-u8 timecounter=0 ;
-timecounter ++;
-if (timecounter == 2){
-     LCD_SetCursorPostion_Asynch(LCD_DISPLAY_LINE1,LCD_DISPLAY_COL1);
-   
+static u8 timecounter=0 ;
+    timecounter ++;
+
+if(timecounter ==3){
+    LCD_ClearScreen_Asynch();
 }
-else if (timecounter ==4){
+
+else if (timecounter == 6){
+    LCD_SetCursorPostion_Asynch(LCD_DISPLAY_LINE1,LCD_DISPLAY_COL1);
+}
+
+else if (timecounter ==9){
     LCD_WriteString_Asynch ("StopWatch",9);
 }
-else if (timecounter ==6){
-    LCD_SetCursorPostion_Asynch(LCD_DISPLAY_LINE2,LCD_DISPLAY_COL2);
+
+else if (timecounter ==12){
+    LCD_SetCursorPostion_Asynch(LCD_DISPLAY_LINE2,LCD_DISPLAY_COL1);
 }
-else if (timecounter == 8){
-    LCD_WriteString_Asynch ("Edit Time&date",14);
+
+else if (timecounter == 15){
+    LCD_WriteString_Asynch ("Edit Time&Date  ",16);
     timecounter = 0;
 }
+
 
 }
 
@@ -170,7 +188,7 @@ void switch_Task(void)
 {
     u8 counter;
     u8 Switch_state;
-    
+    current_pressedswitch=8;
     for(counter=0;counter<_Switch_Num;counter++){
 
         Switch_GetSwitchState(counter,&Switch_state);
@@ -182,7 +200,6 @@ void switch_Task(void)
 
     }
 }
-
 
 int main(int argc, char *argv[])
 {

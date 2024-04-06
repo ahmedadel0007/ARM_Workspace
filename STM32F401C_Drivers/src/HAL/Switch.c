@@ -50,7 +50,7 @@ void Switch_GetSwitchState(u32 SwitchName, u8 *Add_SwitchState)
 void SWITCH_Runabble(void)
 {
 	static u8 counter[_Switch_Num];
-	static u8 current;
+	static u32 current;
 	static u8 pervious[_Switch_Num];
 	u8 localindex;
 	for (localindex = 0; localindex < _Switch_Num; localindex++)

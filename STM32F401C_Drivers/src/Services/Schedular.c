@@ -48,7 +48,7 @@ void Sched_Start (void){
 void Sched (void){
 
 	u32 idx;
-	static u32 Timestamp =0 ;
+	static u32 Timestamp = 0;
 
 	for(idx=0 ; idx < _RUN_NUM; idx ++){
 

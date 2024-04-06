@@ -50,15 +50,15 @@ const Switch_cfg_t SWITCHEs[_Switch_Num] = {
         .Port = GPIO_A,
         .State = GPIO_MODE_INPUT_PU
     },
-   [Switch_up] = {
-        .Pin = HSwitch_PIN1,
-        .Port = HSwitch_PORTA,
-        .State = HSwitch_INPUT_PL
-    },
-   [Switch_down] = {
-        .Pin = HSwitch_PIN14,
-        .Port = HSwitch_PORTB,
-        .State = HSwitch_INPUT_PL
-    },	
+//    [Switch_up] = {
+//         .Pin = HSwitch_PIN1,
+//         .Port = HSwitch_PORTA,
+//         .State = HSwitch_INPUT_PL
+//     },
+//    [Switch_down] = {
+//         .Pin = HSwitch_PIN14,
+//         .Port = HSwitch_PORTB,
+//         .State = HSwitch_INPUT_PL
+//     },	
 
 };

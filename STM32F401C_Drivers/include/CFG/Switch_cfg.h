@@ -8,8 +8,8 @@ typedef enum
 {
 	/* EX : HSwitch */
 	Switch_mode,
-	Switch_up,
-	Switch_down,
+	// Switch_up,
+	// Switch_down,
 	/*Indicate number of HSwitchd don't use it */
     _Switch_Num
 }Switches_t;
