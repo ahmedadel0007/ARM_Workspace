@@ -7,18 +7,26 @@
 #include"GPIO.h"
 
 typedef struct{
-	    volatile u32 MODER;
-		volatile u32 OTYPER;
-		volatile u32 OSPEEDR;
-		volatile u32 PUPDR;
-		volatile u32 IDR;
-		volatile u32 ODR;
-		volatile u32 BSRR;
-		volatile u32 LCKR;
-		volatile u32 AFRL;
-		volatile u32 AFRH;
+	     u32 MODER;
+		 u32 OTYPER;
+		 u32 OSPEEDR;
+		 u32 PUPDR;
+		 u32 IDR;
+		 u32 ODR;
+		 u32 BSRR;
+		 u32 LCKR;
+		 u32 AFRL;
+		 u32 AFRH;
 }GPIO_Reg_t;
 
+
+
+volatile GPIO_Reg_t * const GPIO[NUMBER_OF_PORTS] =
+{
+  GPIO_A, 
+  GPIO_B,
+  GPIO_C ,
+};
 
 #define HALF_WORD  16
 
@@ -135,24 +143,30 @@ GPIO_Errorstate_t GPIO_SetPin_value(void* Copy_Port, u32 pin_num,u32 Copy_Value)
 
 //=====================================================================================================//
 
-GPIO_Errorstate_t GPIO_GetPin_value(void* Copy_Port, u16 Copy_Pin, u32* Copy_Value){
-	GPIO_Errorstate_t local_errorstate =GPIO_Ok;
-
-	if ( ( Copy_Pin < GPIO_PIN0  ) || (Copy_Pin  >GPIO_PIN15 ) )
-	{
-		local_errorstate=GPIO_Wrong_Pin_Config;
-	}
-
-	else if ((Copy_Port == NULL) || (Copy_Value == NULL) )
-	{
-		local_errorstate=GPIO_NULL_ptr;
-	}
+GPIO_Errorstate_t GPIO_GetPin_value(u8 Copy_Port, u16 Copy_Pin, u32* Copy_Value){
 	
-	else
-	{
-		*Copy_Value=(((((GPIO_Reg_t*)Copy_Port)->IDR)>> Copy_Pin) & (1));
-	}
-return local_errorstate;
+
+	GPIO_Errorstate_t ReturnError = GPIO_Ok;
+	u32 Local_Reg;
+		if(Copy_Port > NUMBER_OF_PORTS)
+		{
+			ReturnError = GPIO_Nok;
+		}
+		else if(Copy_Pin > GPIO_total_pins)
+		{
+			ReturnError = GPIO_Nok;
+		}
+		else if(Copy_Value == NULL)
+		{
+				ReturnError = GPIO_NULL_ptr;
+		}
+		else
+		{
+		    	Local_Reg = GPIO[Copy_Port] -> IDR;
+			*Copy_Value = (Local_Reg & (1 << Copy_Pin)) >> Copy_Pin;
+		}
+		return ReturnError;
 }
+
 
 //======================================================================================================//

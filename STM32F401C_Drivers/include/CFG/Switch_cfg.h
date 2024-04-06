@@ -1,25 +1,20 @@
-
-#ifndef SWITCHCFG_H_
-#define SWITCHCFG_H_
-
-typedef enum
+#ifndef HSwitch_CFG_H_
+#define HSwitch_CFG_H_
+/*******************************************************************************
+ *                        	  Types Declaration                                 *
+ *******************************************************************************/
+/* Configure The HSwitchs Namein this Enum */
+typedef enum 
 {
+	/* EX : HSwitch */
 	Switch_mode,
 	Switch_up,
 	Switch_down,
-	Switch_right,
-	Switch_left,
+	/*Indicate number of HSwitchd don't use it */
+    _Switch_Num
+}Switches_t;
+
+#endif
 
 
-	_SWITCH_NUM  /*THE USER SHOULDNOT CHANGE IT */
-}SWITCHES_enu;
 
-typedef struct
-{
-	void* SwitchPORT;
-	u32 SwitchPINnumber;
-	u32 SwitchConnection;
-}SWITCHCFG_str;
-
-
-#endif  /*SWITCHCFG_H_*/

@@ -19,6 +19,7 @@
 #define GPIO_C ((void*)0x40020800)
 
 
+
 /*** GPIO Pins index ***/
 #define GPIO_PIN0    0x00000000
 #define GPIO_PIN1    0x00000001
@@ -38,8 +39,9 @@
 #define GPIO_PIN15   0x0000000F
 
 
-#define GPIO_total_ports   5
+
 #define GPIO_total_pins    15
+#define NUMBER_OF_PORTS 	6
 
 
 /*******Macros for the GPIO pin modes*******/
@@ -173,7 +175,7 @@ GPIO_Errorstate_t GPIO_SetPin_value(void* Copy_Port, u32 pin_num,u32 Copy_Value)
 *                   #support to configure many pins in the same port at once.          *
 * @return       :  error, choosing a wrong pin, port or value   -----------------------*
 ****************************************************************************************/
-GPIO_Errorstate_t GPIO_GetPin_value(void* Copy_Port, u16 Copy_Pin, u32* Copy_Value);
+GPIO_Errorstate_t GPIO_GetPin_value(u8 Copy_Port, u16 Copy_Pin, u32* Copy_Value);
 
 
 

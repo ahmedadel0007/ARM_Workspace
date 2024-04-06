@@ -27,7 +27,7 @@ extern void Runnable_views (void);
 
 extern void Runnable_timeStamp (void);
 
-extern void switch_runnable_Task (void);
+extern void switch_Task(void);
 
 extern void SWITCH_Runabble(void);
 
