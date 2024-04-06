@@ -11,7 +11,7 @@
 #define VIEW_4 4
 
 u32 current_pressedswitch =_Switch_Num;
-
+static u8 counter_1 =0;
 
 
 static void Display_Date_time(void);
@@ -54,6 +54,7 @@ void Runnable_views(void)
        
         if (current_pressedswitch == Switch_mode)
         {
+            counter_1++;
             VIEWS=VIEW_2;
             LCD_ClearScreen_Asynch();  
         }
@@ -61,8 +62,11 @@ void Runnable_views(void)
         break;
 
     case VIEW_2:
-           
-             Display_View2(); 
+
+           if (counter_1 ==1){
+             Display_View2();
+             
+           }
             //  if (current_pressedswitch == Switch_up){
             //     Status= StopWatch;
             //     VIEWS=VIEW_3;
@@ -72,9 +76,11 @@ void Runnable_views(void)
             //     Status=EditTime;
             //  }
             
-              if (current_pressedswitch == Switch_mode){
+              if (counter_1==2 && current_pressedswitch == Switch_mode){
                     LCD_ClearScreen_Asynch();
+                   counter_1 = 0;
                      VIEWS= VIEW_1;
+                    
                      
                    }
                     
@@ -152,14 +158,15 @@ void Display_Date_time(void)
     Current_time  [7] = 48 + (Time.Seconds%10) ;
     LCD_WriteString_Asynch (Current_time,8);
     counter = 0;
-
+    
 }
 }
 
 void Display_View2 (void){
 static u8 timecounter=0 ;
     timecounter ++;
-
+    
+   
 if(timecounter ==3){
     LCD_ClearScreen_Asynch();
 }
@@ -179,6 +186,8 @@ else if (timecounter ==12){
 else if (timecounter == 15){
     LCD_WriteString_Asynch ("Edit Time&Date  ",16);
     timecounter = 0;
+     counter_1++;
+    
 }
 
 
