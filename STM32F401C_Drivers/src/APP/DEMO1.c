@@ -20,7 +20,17 @@ static void Display_Date_time(void);
 static void Display_View2 (void);
 static void Display_View3 (void);
 void switch_Task(void);
+void StopWatchMs(void);
 
+typedef enum
+{
+    Start,
+    Stop,
+    Reset,
+    Default,
+} SW_Mode_t;
+
+SW_Mode_t StopWatch_State = Start;
 
 
 typedef struct
@@ -28,9 +38,21 @@ typedef struct
     u8 Hours;
     u8 Minutes;
     u8 Seconds;
+   
 } Clock_t;
 
 Clock_t Time;
+
+typedef struct
+{
+    u8 Hours;
+    u8 Minutes;
+    u8 Seconds;
+    u8 MilliSec;
+} StopWatch_t;
+
+StopWatch_t SW;
+
 
 typedef enum
 {
@@ -41,13 +63,13 @@ typedef enum
 Status_t Status;
 
 
-
+char StopWatch_time[10];
 char Current_time[8];
 char Current_date[10];
 /********************Runnables**********************************************************/
 void Runnable_views(void)
 {
-    
+    StopWatchMs();
     static u8 VIEWS = VIEW_1;
     switch (VIEWS)
     {
@@ -95,10 +117,11 @@ void Runnable_views(void)
         break;
 
     case VIEW_3:
+           
               if (Choose_View ==1){
              Display_View3();
-             
            }
+           
             if (Choose_View==2 && current_pressedswitch == Switch_mode){
                     LCD_ClearScreen_Asynch();
                     Default_View = 1;
@@ -120,6 +143,7 @@ void Runnable_views(void)
 void Runnable_timeStamp(void)
 {
 
+
     Time.Seconds++;
     if (Time.Seconds > 59)
     {
@@ -138,6 +162,33 @@ void Runnable_timeStamp(void)
         }
     }
 }
+
+void StopWatchMs(void)
+{
+   
+     SW.MilliSec++;
+    if (SW.MilliSec > 9)
+    {
+        SW.Seconds++;
+        SW.MilliSec=0;
+        if (SW.Seconds > 59)
+        {
+            SW.Minutes++;
+          SW.Seconds=0;
+          SW.MilliSec=0;
+            if (SW.Minutes >59)
+            {
+                SW.Hours++;
+                SW.Minutes=0;
+                SW.Seconds=0;
+                SW.MilliSec=0;   
+            }
+        }
+    }
+   
+   }
+   
+
 
 /***********************Implementation************************************************/
 void Display_Date_time(void)
@@ -243,22 +294,29 @@ void Display_View3 (void){
     }
      else if (counter == 12){
 
-    Current_time  [0] = 48 + (Time.Hours/10);
-    Current_time   [1] =  48 + (Time.Hours%10);
+   StopWatch_time   [0] = 48 +  (SW.Hours/10);
+   StopWatch_time   [1] =  48 +(SW.Hours%10);
 
-    Current_time  [2] = 58 ;
+   StopWatch_time  [2] = 58 ;
 
-    Current_time  [3] = 48 + (Time.Minutes/10);
-    Current_time  [4]= 48 + (Time.Minutes%10);
-    Current_time  [5] = 58 ;
+   StopWatch_time  [3] = 48 + (SW.Minutes/10);
+   StopWatch_time  [4]= 48 + (SW.Minutes%10);
 
-    Current_time  [6] = 48 + (Time.Seconds/10) ;
-    Current_time  [7] = 48+ (Time.Seconds%10) ;
-    LCD_WriteString_Asynch (Current_time,8);
+   StopWatch_time  [5] = 58 ;
+
+   StopWatch_time  [6] = 48 + (SW.Seconds/10) ;
+   StopWatch_time  [7] = 48+ (SW.Seconds%10) ;
+
+   StopWatch_time  [8] = 58 ;
+
+   StopWatch_time  [9] = 48 + (SW.MilliSec/100) ;
+   
+
+   LCD_WriteString_Asynch (StopWatch_time,10);
     counter = 0;
    
-    Choose_View ++;
     
+Choose_View ++;
 }
 
 }
