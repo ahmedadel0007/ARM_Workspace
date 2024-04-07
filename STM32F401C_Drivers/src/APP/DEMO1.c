@@ -11,11 +11,14 @@
 #define VIEW_4 4
 
 u32 current_pressedswitch =_Switch_Num;
-static u8 counter_1 =0;
+ u8 Default_View =0;
+ u8 Choose_View =0;
+ u8 StopWatch_View =0;
 
 
 static void Display_Date_time(void);
 static void Display_View2 (void);
+static void Display_View3 (void);
 void switch_Task(void);
 
 
@@ -54,43 +57,55 @@ void Runnable_views(void)
        
         if (current_pressedswitch == Switch_mode)
         {
-            counter_1++;
+            Default_View++;
+            LCD_ClearScreen_Asynch(); 
             VIEWS=VIEW_2;
-            LCD_ClearScreen_Asynch();  
+             
         }
 
         break;
 
     case VIEW_2:
 
-           if (counter_1 ==1){
+           if (Default_View ==1){
              Display_View2();
              
            }
-            //  if (current_pressedswitch == Switch_up){
-            //     Status= StopWatch;
-            //     VIEWS=VIEW_3;
-            //  }   
-            //  else if (current_pressedswitch == Switch_down){
-            //     VIEWS=VIEW_4;
-            //     Status=EditTime;
-            //  }
-            
-              if (counter_1==2 && current_pressedswitch == Switch_mode){
+            if (Default_View==2 && current_pressedswitch == Switch_mode){
                     LCD_ClearScreen_Asynch();
-                   counter_1 = 0;
-                     VIEWS= VIEW_1;
-                    
-                     
+                    Default_View = 0;
+                    VIEWS= VIEW_1; 
                    }
-                    
+            else if (Default_View == 2 && current_pressedswitch == Switch_up){
+                 LCD_ClearScreen_Asynch();
+                 Default_View =0;
+                 Choose_View++;
+                 VIEWS =VIEW_3;
+            }          
+             else if (Default_View==2 && current_pressedswitch == Switch_down){
+                LCD_ClearScreen_Asynch();
+                Default_View =0;
+                StopWatch_View =0 ;
+                VIEWS=VIEW_4;
                 
+             }
+            
              
-           
+                
         break;
 
     case VIEW_3:
+              if (Choose_View ==1){
+             Display_View3();
              
+           }
+            if (Choose_View==2 && current_pressedswitch == Switch_mode){
+                    LCD_ClearScreen_Asynch();
+                    Default_View = 1;
+                    Choose_View=0;
+                    VIEWS= VIEW_2; 
+                   }
+          
 
         break;
 
@@ -186,8 +201,8 @@ else if (timecounter ==12){
 else if (timecounter == 15){
     LCD_WriteString_Asynch ("Edit Time&Date  ",16);
     timecounter = 0;
-     counter_1++;
-    
+     Default_View++;
+
 }
 
 
@@ -208,6 +223,44 @@ void switch_Task(void)
         }
 
     }
+}
+
+void Display_View3 (void){
+    static u8 counter = 0;
+    counter++;
+   
+    if (counter ==3){
+        LCD_SetCursorPostion_Asynch(LCD_DISPLAY_LINE1, LCD_DISPLAY_COL1);
+    }
+    if (counter == 6)
+    {
+        LCD_WriteString_Asynch("STOPWATCH", 9);
+    }
+    else if (counter == 9)
+    {
+        LCD_SetCursorPostion_Asynch(LCD_DISPLAY_LINE2, LCD_DISPLAY_COL1);
+        
+    }
+     else if (counter == 12){
+
+    Current_time  [0] = 48 + (Time.Hours/10);
+    Current_time   [1] =  48 + (Time.Hours%10);
+
+    Current_time  [2] = 58 ;
+
+    Current_time  [3] = 48 + (Time.Minutes/10);
+    Current_time  [4]= 48 + (Time.Minutes%10);
+    Current_time  [5] = 58 ;
+
+    Current_time  [6] = 48 + (Time.Seconds/10) ;
+    Current_time  [7] = 48+ (Time.Seconds%10) ;
+    LCD_WriteString_Asynch (Current_time,8);
+    counter = 0;
+   
+    Choose_View ++;
+    
+}
+
 }
 
 int main(int argc, char *argv[])
