@@ -15,7 +15,7 @@
     app3 ,
     app4 ,
     app5 ,
-    //app6 ,
+    app6 ,
 	_RUN_NUM,
 
 }Run_t;
@@ -32,7 +32,7 @@ extern void switch_Task(void);
 
 extern void SWITCH_Runabble(void);
 
-//extern void Runnable_StopWatchMs(void);
+extern void StopWatchMs(void);
 
 
 #endif /* RUNNABLELIST_CFG_H_ */
