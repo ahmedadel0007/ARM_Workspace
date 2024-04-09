@@ -10,6 +10,8 @@ typedef enum
 	Switch_mode,
 	Switch_up,
 	Switch_down,
+	Switch_right,
+	Switch_left,
 	/*Indicate number of HSwitchd don't use it */
     _Switch_Num
 }Switches_t;

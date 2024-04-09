@@ -60,5 +60,15 @@ const Switch_cfg_t SWITCHEs[_Switch_Num] = {
         .Port = GPIO_A,
         .State = GPIO_MODE_INPUT_PU
     },	
+    [Switch_right]= {
+        .Pin = HSwitch_PIN10,
+        .Port = GPIO_A,
+        .State = GPIO_MODE_INPUT_PU
+    },	
+    [Switch_left]= {
+        .Pin = HSwitch_PIN11,
+        .Port = GPIO_A,
+        .State = GPIO_MODE_INPUT_PU
+    },	    
 
 };

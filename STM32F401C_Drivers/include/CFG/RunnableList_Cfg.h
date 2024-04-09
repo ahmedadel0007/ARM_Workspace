@@ -32,7 +32,7 @@ extern void switch_Task(void);
 
 extern void SWITCH_Runabble(void);
 
-extern void StopWatchMs(void);
+//extern void StopWatchMs(void);
 
 
 #endif /* RUNNABLELIST_CFG_H_ */
