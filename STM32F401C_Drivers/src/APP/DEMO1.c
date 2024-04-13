@@ -145,6 +145,7 @@ void Runnable_views(void)
         {
             LCD_ClearScreen_Asynch();
             Default_View = 0;
+            Choose_View++;
             StopWatch_View = 0;
             VIEWS = VIEW_4;
         }
@@ -157,18 +158,18 @@ void Runnable_views(void)
         {
             Display_View3();
         }
-        if (Choose_View >= 2 && current_pressedswitch == Switch_up)
+        if ( current_pressedswitch == Switch_up)
         {
-            StopWatchMs();
             VIEWS = VIEW_3_1;
+            StopWatchMs();
             Choose_View = 1;
         }
 
-        if (Choose_View >= 2 && current_pressedswitch == Switch_down)
+        if ( current_pressedswitch == Switch_down)
         {
 
-            StopWatchMs();
             VIEWS = VIEW_3_2;
+           
             Choose_View = 1;
         }
 
@@ -184,18 +185,17 @@ void Runnable_views(void)
     case VIEW_3_1: // Start Stowatch view
 
         Choose_View = 0;
-
+        StopWatchMs();
         Display_View3_1();
         if (current_pressedswitch == Switch_down)
         {
-            StopWatchMs();
+           
             VIEWS = VIEW_3_2;
         }
         if (current_pressedswitch == Switch_mode)
         {
             LCD_ClearScreen_Asynch();
             Default_View = 1;
-            StopWatchMs();
             VIEWS = VIEW_2;
         }
         break;
@@ -206,39 +206,35 @@ void Runnable_views(void)
         Display_View3_2();
         if (current_pressedswitch == Switch_up)
         {
-            Choose_View++;
-            StopWatchMs();
+            // Choose_View++;
+           
             VIEWS = VIEW_3_1;
         }
-        if (Choose_View >= 2 && current_pressedswitch == Switch_down)
+        if ( current_pressedswitch == Switch_down)
         {
-            StopWatchMs();
             VIEWS = VIEW_3_3;
-            Choose_View = 0;
+           // Choose_View = 0;
         }
-        if (Choose_View >= 2 && current_pressedswitch == Switch_mode)
+        if (current_pressedswitch == Switch_mode)
         {
             LCD_ClearScreen_Asynch();
             Default_View = 1;
-            Choose_View = 0;
-            StopWatchMs();
             VIEWS = VIEW_2;
         }
         break;
     case VIEW_3_3: // Reset Stopwatch
         Choose_View = 0;
+        StopWatchMs();
         Display_View3_3();
         if (current_pressedswitch == Switch_up)
         {
-            StopWatchMs();
-            VIEWS = VIEW_3_1;
+            VIEWS = VIEW_3;
         }
         if (current_pressedswitch == Switch_mode)
         {
             LCD_ClearScreen_Asynch();
             Default_View = 1;
             Choose_View = 0;
-            StopWatchMs();
             VIEWS = VIEW_2;
         }
         break;
@@ -460,7 +456,29 @@ void Display_View3(void) // default stopwatch
     }
     if (counter == 14)
     {
-        LCD_WriteString_Asynch("00:00:00        ", 16);
+         StopWatch_time[0] = 48;
+        StopWatch_time[1] = 48 ;
+
+        StopWatch_time[2] = 58;
+
+        StopWatch_time[3] = 48 ;
+        StopWatch_time[4] = 48 ;
+
+        StopWatch_time[5] = 58;
+
+        StopWatch_time[6] = 48;
+        StopWatch_time[7] = 48;
+
+        StopWatch_time[8] = 32; // 58;
+
+        StopWatch_time[9] = 32;  // 48 + (SW.MilliSec % 7000);
+        StopWatch_time[10] = 32; // 48 + (SW.MilliSec % 1000);
+        StopWatch_time[11] = 32;
+        StopWatch_time[12] = 32;
+        StopWatch_time[13] = 32;
+        StopWatch_time[14] = 32;
+        StopWatch_time[15] = 32;
+        LCD_WriteString_Asynch(StopWatch_time,16);
         counter = 0;
         Choose_View++;
     }
@@ -517,7 +535,7 @@ void Display_View3_2(void)
 { // stop stopwatch
 
     static u8 counter = 0;
-    StopWatchMs();
+   
     counter++;
     if (counter == 4)
     {
@@ -578,9 +596,31 @@ void Display_View3_3(void)
     {
         LCD_SetCursorPostion_Asynch(LCD_DISPLAY_LINE2, LCD_DISPLAY_COL1);
     }
-    if (counter == 14)
+    if (counter == 16)
     {
-        LCD_WriteString_Asynch("00:00:00        ", 16);
+         StopWatch_time[0] = 48;
+        StopWatch_time[1] = 48 ;
+
+        StopWatch_time[2] = 58;
+
+        StopWatch_time[3] = 48 ;
+        StopWatch_time[4] = 48 ;
+
+        StopWatch_time[5] = 58;
+
+        StopWatch_time[6] = 48;
+        StopWatch_time[7] = 48;
+
+        StopWatch_time[8] = 32; // 58;
+
+        StopWatch_time[9] = 32;  // 48 + (SW.MilliSec % 7000);
+        StopWatch_time[10] = 32; // 48 + (SW.MilliSec % 1000);
+        StopWatch_time[11] = 32;
+        StopWatch_time[12] = 32;
+        StopWatch_time[13] = 32;
+        StopWatch_time[14] = 32;
+        StopWatch_time[15] = 32;
+        LCD_WriteString_Asynch(StopWatch_time,16);
         counter = 0;
         Choose_View++;
     }
