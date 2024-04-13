@@ -161,8 +161,7 @@ void Runnable_views(void)
         if ( current_pressedswitch == Switch_up)
         {
             VIEWS = VIEW_3_1;
-            StopWatchMs();
-            Choose_View = 1;
+            
         }
 
         if ( current_pressedswitch == Switch_down)
@@ -170,7 +169,6 @@ void Runnable_views(void)
 
             VIEWS = VIEW_3_2;
            
-            Choose_View = 1;
         }
 
         if (current_pressedswitch == Switch_mode)
@@ -183,10 +181,10 @@ void Runnable_views(void)
 
         break;
     case VIEW_3_1: // Start Stowatch view
-
-        Choose_View = 0;
-        StopWatchMs();
+       
         Display_View3_1();
+        StopWatchMs();
+      
         if (current_pressedswitch == Switch_down)
         {
            
@@ -202,7 +200,7 @@ void Runnable_views(void)
 
     case VIEW_3_2: // stop stopwatch
 
-        Choose_View = 0;
+        // Choose_View = 0;
         Display_View3_2();
         if (current_pressedswitch == Switch_up)
         {
@@ -223,8 +221,7 @@ void Runnable_views(void)
         }
         break;
     case VIEW_3_3: // Reset Stopwatch
-        Choose_View = 0;
-        StopWatchMs();
+        //Choose_View = 0;
         Display_View3_3();
         if (current_pressedswitch == Switch_up)
         {
@@ -234,7 +231,7 @@ void Runnable_views(void)
         {
             LCD_ClearScreen_Asynch();
             Default_View = 1;
-            Choose_View = 0;
+            //Choose_View = 0;
             VIEWS = VIEW_2;
         }
         break;
@@ -486,7 +483,7 @@ void Display_View3(void) // default stopwatch
 
 void Display_View3_1(void) // strat stopwatch
 {
-    StopWatchMs();
+   // StopWatchMs();
     static u8 counter = 0;
     counter++;
     if (counter == 4)
@@ -581,7 +578,10 @@ void Display_View3_2(void)
 
 void Display_View3_3(void)
 { // Reset Stopwatch
-
+     SW.Hours=0;
+     SW.Minutes=0;
+     SW.Seconds=0;
+     StopWatch_time[16]= 0;
     static u8 counter = 0;
     counter++;
     if (counter == 4)
@@ -598,7 +598,7 @@ void Display_View3_3(void)
     }
     if (counter == 16)
     {
-         StopWatch_time[0] = 48;
+        StopWatch_time[0] =48;
         StopWatch_time[1] = 48 ;
 
         StopWatch_time[2] = 58;
@@ -621,6 +621,7 @@ void Display_View3_3(void)
         StopWatch_time[14] = 32;
         StopWatch_time[15] = 32;
         LCD_WriteString_Asynch(StopWatch_time,16);
+        
         counter = 0;
         Choose_View++;
     }
